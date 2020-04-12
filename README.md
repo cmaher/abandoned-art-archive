@@ -13,6 +13,9 @@ under the [Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported (C
 
 Filenames have been changed to reflect the number and name of the post, as recorded on abandonedart.org.
 Files have been modified to include the wayback machine link used to copy it.
+Additional changes are marked with a // CHANGE: cmaher
 
 The following entries do not have any source:
-* 14: Angry Pencils: https://web.archive.org/web/20170901151720/http://abandonedart.org/?p=97
+* 14 - Angry Pencils: https://web.archive.org/web/20170901151720/http://abandonedart.org/?p=97
+* 95 - Opiamas: https://web.archive.org/web/20170901150114/http://abandonedart.org/?p=852
+All images are from Wikipedia, and the source is given.
