@@ -29,7 +29,7 @@ int maxline = 60;
 //================================= init
 
 void setup() {
-  size(scrwidth,scrheight);
+  size(500, 300); // CHANGE: cmaher
   background(255);
   frameRate(30);
   smooth();

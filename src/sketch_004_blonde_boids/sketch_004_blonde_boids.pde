@@ -1,4 +1,4 @@
-// https://web.archive.org/web/20170628182812/http://abandonedart.org/works/115_kaleidoboids2/_081012_kaleidoboids2.pde
+// https://web.archive.org/web/20170703095121/http://abandonedart.org/works/011_blonde/blondeboids.pde
 // Oct 2008 
 // http://www.abandonedart.org
 // http://www.zenbullets.com
@@ -26,10 +26,10 @@ Flock flock;
 
 void setup() {
   size(500,300);
-  frameRate(12);
+  frameRate(24);
   smooth();
   sampleColour();
-  launch(width/2,height/2);
+  launch(random(width),random(height));
 }
 
 void launch(float ex, float why) {
@@ -40,14 +40,15 @@ void launch(float ex, float why) {
   }
 }
 
+
 //================================= colour sampling
 
-int numcols = 600; // 30x20
+int numcols = 400; // 20x20
 color[] colArr = new color[numcols];
 
 void sampleColour() {
   PImage img;
-  img = loadImage("redpalette.jpg");
+  img = loadImage("blonde.jpg"); // CHANGE: cmaher
   image(img,0,0);
   int count = 0;
   for (int x=0; x < img.width; x++){
@@ -64,36 +65,14 @@ void sampleColour() {
 //================================= frame loop
 
 void draw() {
-  
   flock.run();
-  kaleidoscope();
 }
-
-void kaleidoscope() {
-  // top right, mirror top left in the x
-  loadPixels();
-  for (int yy = 0; yy < int(height/2)+1; yy++) {
-    for (int x = int(width/2); x < width; x++) {
-      pixels[x+(yy*width)] = pixels[(width-x)+(yy*width)];
-    }
-  }
-  updatePixels();  
-  // bottom, mirror top
-  loadPixels();
-  for (int yyy = int(height/2); yyy < height; yyy++) {
-    for (int xx = 0; xx < width; xx++) {
-      pixels[xx+(yyy*width)] = pixels[xx+( (height-yyy)*width )];
-    }
-  }
-  updatePixels();
-}
-
-
 
 
 //================================= interaction
 
 void mousePressed() {
+  //flock.addBoid(new Boid(new Vector3D(mouseX,mouseY),2.0f,0.05f));
   launch(mouseX, mouseY);
 }
 
@@ -101,7 +80,7 @@ void mousePressed() {
 
 
 
-//================================= boids objects (c/o processing.org)
+//================================= vector/boids objects (c/o processing.org)
 
 // Simple Vector class
 
@@ -285,13 +264,15 @@ class Boid {
   Boid(Vector3D l, float ms, float mf) {
     acc = new Vector3D(0,0);
     vel = new Vector3D(random(-1,1),random(-1,1));
+    // vel = new Vector3D(1,random(0.05));
     loc = l.copy();
     lastloc = l.copy();
-    r = 20.0;
+    r = 50.0;
     maxspeed = ms;
     maxforce = mf;
     
     myAlpha = int(random(100) + 15);
+    // myCol = int(random(255));
     myCol = colArr[int(random(numcols))];
   }
   
@@ -359,12 +340,28 @@ class Boid {
   }
   
   void render() {
-    strokeWeight(random(4));  // mm, blotches
+    // Draw a triangle rotated in the direction of velocity
+    // float theta = vel.heading2D() + PI/2;
+    // fill(200, myAlpha);
+    //noFill();
     stroke(myCol, myAlpha);
+    
+   /* pushMatrix();
+    translate(loc.x,loc.y);
+    rotate(theta);
+    beginShape(TRIANGLES);
+    vertex(0, -r*2);
+    vertex(-r, r*2);
+    vertex(r, r*2);
+    endShape();
+    popMatrix();  */
+    
     if (!wrapped) {
       line(loc.x, loc.y, lastloc.x, lastloc.y);
     }
     lastloc = loc.copy();
+    
+    
   }
   
   // Wraparound
